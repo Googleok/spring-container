@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean class="com.cafe24.springcontainer.user.User1" />
+
+	<bean id="usr" name="user"
+		class="com.cafe24.springcontainer.user.User" />
+
+	<bean class="com.cafe24.springcontainer.user.User" />
+
+	<!-- bean안에 list 로 value를 줘서 friends를 만듦 -->
+	<bean id="usr2" class="com.cafe24.springcontainer.user.User">
+		<constructor-arg value="오딘의 아들 토르!!" />
+		<property name="friends">
+			<list>
+				<value>아이언맨</value>
+				<value>캡틴 아메리카</value>
+				<value>스파이더맨</value>
+				<value>닥터 스트레인지</value>
+				<value>헐크</value>
+				<value>블랙 위도우</value>
+				<value>블랙팬서</value>
+				<value>앤트맨</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- property로 bean안에 직접 bean을 주입 -->
+	<bean id="usr3" class="com.cafe24.springcontainer.user.User">
+		<constructor-arg index="1" value="토르" />
+		<constructor-arg index="0" value="1" />
+		<property name="friend">
+			<bean class="com.cafe24.springcontainer.user.Friend">
+				<property name="name" value="아이언맨" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="friend" class="com.cafe24.springcontainer.user.Friend">
+		<property name="name" value="타노스" />
+	</bean>
+
+	<!-- bean 안에 ref 로 위에 있는 friend를 참조해서 가져옴 -->
+	<bean id="usr4" class="com.cafe24.springcontainer.user.User">
+		<property name="no" value="2" />
+		<property name="name" value="토르" />
+		<property name="friend" ref="friend"></property>
+	</bean>
+
+</beans>
